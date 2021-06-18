@@ -1,0 +1,45 @@
+<!-- views/template.eta -->
+
+My name is <%= it.name %>
+
+<!-- include other template files as "partials" -->
+
+<%~ includeFile('./footer') %>
+
+<!-- views/footer.eta -->
+
+<footer>This is the footer!</footer>
+
+// mod.ts
+
+import { renderFile, configure } from "https://deno.land/x/eta@v1.11.0/mod.ts"
+
+const viewPath = `${Deno.cwd()}/views/`
+
+configure({
+
+  // This tells Eta to look for templates
+
+  // In the /views directory
+
+  views: viewPath
+
+})
+
+// Eta assumes the .eta extension if you don't specify an extension
+
+// You could also write renderFile("template.eta"),
+
+// renderFile("/template"), etc.
+
+let templateResult = await renderFile("./template", { name: "Mark" })
+
+console.log(templateResult)
+
+/*
+
+My name is Mark
+
+<footer>This is the footer!</footer>
+
+*/
